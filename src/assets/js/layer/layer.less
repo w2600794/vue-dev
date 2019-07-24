@@ -1,0 +1,64 @@
+/*layer confirm 组件*/
+.layer-warp{
+    position: fixed;
+    top:0;
+    left: 0;
+    bottom:0;
+    right:0;
+    z-index: 1000000;
+    background: rgba(0,0,0,.3);
+    font-size: .373333rem;
+    .layer-box{
+        position: absolute;
+        top:50%;
+        left:50%;
+        transform: translate(-50%,-50%);
+        width: 8rem;
+        background: #fff;
+        .layer-conent{
+            padding: .4rem;
+            text-align: center;
+        }
+        .layer-btns{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 1.066667rem;
+            button{
+                display: block;
+                width: 100%;
+                height: 100%;
+                font-size: .373333rem;
+                border: 0;
+                border-top: 1px solid #ddd;
+                background: transparent;
+                &:last-child{
+                    border-left: 1px solid #ddd;
+                }
+            }
+        }
+    }
+}
+
+/*layer layerPop 组件*/
+.layerPop-warp{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom:0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .32rem;
+    background:rgba(0,0,0,.2);
+    .layer-box{
+        padding: .333333rem;
+        min-width: 4rem;
+        max-width: 8rem;
+        background: rgba(0,0,0,.5);
+        color: #fff;
+        text-align: center;
+    }
+}
