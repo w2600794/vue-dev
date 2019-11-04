@@ -1,61 +1,42 @@
 
 <template>
     <div id="app">
-        <div>
-            fasdfad发第三方拉开发哪里看到说过哪里开始的
-            <p>sdfgasjgasj 大师傅ad所发生的</p>
-            <p>sdfgasjgasj 大师傅ad所发生的</p>
-            <p>sdfgasjgasj 大师傅ad所发生的</p>
-            <p>sdfgasjgasj 大师傅ad所发生的</p>
-            <p>sdfgasjgasj 大师傅ad所发生的</p>
-            <p>sdfgasjgasj 大师傅ad所发生的</p>
-            <p>sdfgasjgasj 大师傅ad所发生的</p>
-            <p>sdfgasjgasj 大师傅ad所发生的</p>
-            <p>sdfgasjgasj 大师傅ad所发生的</p>
-        </div>
-        <!-- <headerBox>
-            <div class="slot" slot="head" style="background: yellow">
-                <header1 :header1SlotPropsData="header1SlotPropsData"></header1>
-            </div>
-            <div class="main" slot="main">
-                <ul>
-                    <li v-for="(i) in 3" :key="i">{{i+1}}</li>
-                </ul>
-            </div>
-            <template slot-scope="props">
-                <p>{{props.text}}</p>
-            </template>
-        </headerBox>-->
+        <transition :name="transitionName">
+            <router-view class="main-warp"></router-view>
+        </transition>
     </div>
 </template>
 <script>
-import headerBox from "@/components/header/header";
-import header1 from "@/components/header/header1";
 export default {
     data() {
         return {
-            slotMsg: "my name is slot components",
-            header1SlotPropsData:
-                "发斯蒂芬拉开始的减肥拉水电费拉独食难肥阿萨德放开了按道理"
+            transitionName: ""
         };
     },
-    components: {
-        headerBox,
-        header1
+    components: {},
+    watch: {
+        $route(to, from) {
+            //如果to索引大于from索引,判断为前进状态,反之则为后退状态
+            if (to.meta.index === 0) {
+                this.transitionName = "router-fade";
+            } else {
+                if (to.meta.index > from.meta.index) {
+                    //设置动画名称
+                    this.transitionName = "slide-left";
+                } else {
+                    this.transitionName = "slide-right";
+                }
+            }
+        }
     },
-    created() {
-        console.log(this.abc);
-    },
+    created() {},
     mounted() {}
 };
 </script>
 <style lang="less">
-@import "./assets/less/cssVar.less";
+@import url("~@/assets/less/cssVar.less");
 .main-box {
     width: 100%;
     height: 80vh;
-}
-ul li:nth-child(2n) {
-    background: #dddddd;
 }
 </style>

@@ -1,0 +1,89 @@
+// 渐变动画
+.router-fade-enter-active,
+.router-fade-leave-active {
+    transition: opacity .2s ease-in-out;
+}
+
+.router-fade-enter,
+.router-fade-leave-active {
+    opacity: 0;
+}
+
+
+
+
+
+/**
+// 底部弹出动画
+
+*/
+.router-bottom-enter-active,
+.router-bottom-leave-active {
+    transition: all .5s ease-in-out;
+}
+
+.router-bottom-enter {
+    opacity: 0;
+    transform: translateY(100%);
+}
+
+.router-bottom-leave-active {
+    position: fixed;
+    opacity: 0;
+    transform: translateY(100%);
+}
+
+
+
+
+
+// 左侧弹出动画
+.router-left-enter-active,
+.router-left-leave-active {
+    transition: all .5s ease-in-out;
+}
+
+.router-left-enter {
+    opacity: 0;
+    transform: translateX(-100%);
+}
+
+.router-left-leave-active {
+    position: fixed;
+    opacity: 0;
+    transform: translateX(-100%);
+}
+
+
+
+
+
+// 过渡动画
+.slide-right-enter-active,
+.slide-right-leave-active,
+.slide-left-enter-active,
+.slide-left-leave-active {
+    will-change: transform;
+    transition: all .25s ease-in-out;
+    position: absolute;
+}
+
+.slide-right-enter {
+    opacity: 0;
+    transform: translate3d(-100%, 0, 0);
+}
+
+.slide-right-leave-active {
+    opacity: 0;
+    transform: translate3d(100%, 0, 0);
+}
+
+.slide-left-enter {
+    opacity: 0;
+    transform: translate3d(100%, 0, 0);
+}
+
+.slide-left-leave-active {
+    opacity: 0;
+    transform: translate3d(-100%, 0, 0);
+}

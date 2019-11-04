@@ -16,20 +16,20 @@ module.exports = {
         path: config.build.assetsRoot,
         filename: '[name].js',
         chunkFilename: 'chunk_[name].js?[chunkhash]',
-        publicPath: process.env.NODE_ENV === 'production'
-            ? config.build.assetsPublicPath
-            : config.dev.assetsPublicPath
+        publicPath: process.env.NODE_ENV === 'production' ?
+            config.build.assetsPublicPath : config.dev.assetsPublicPath
     },
     resolve: {
-        extensions: ['.js', '.vue', '.json'],
+        extensions: ['.js', '.vue', '.json', '.less'],
         alias: {
             'vue$': 'vue/dist/vue.esm.js',
             '@': resolve('src'),
+            '~': resolve('src/assets'),
+            '~com': resolve('src/components'),
         }
     },
     module: {
-        rules: [
-            {
+        rules: [{
                 test: /\.vue$/,
                 loader: 'vue-loader',
                 options: vueLoaderConfig

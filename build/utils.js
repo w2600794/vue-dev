@@ -3,12 +3,7 @@ const path = require('path')
 const config = require('../config')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const packageConfig = require('../package.json')
-
-
-
-
-
-
+const isApp = require('../src/config').isApp
 
 
 /*util.js  webpack htmlPlugin*/
@@ -16,61 +11,109 @@ const packageConfig = require('../package.json')
 var glob = require('glob');
 // 页面模板
 var HtmlWebpackPlugin = require('html-webpack-plugin')
+
 // 取得相应的页面路径，因为之前的配置，所以是src文件夹下的pages文件夹
 var PAGE_PATH = path.resolve(__dirname, '../src/pages')
+
 // 用于做相应的merge处理
 var merge = require('webpack-merge')
-//多入口配置
+
+
+
+
+/**
+ * 
+ * 
+ * 
+ * 
+ * 多入口文件js
 // 通过glob模块读取pages文件夹下的所有对应文件夹下的.js后缀文件，如果该文件存在
 // 那么就作为入口处理
-exports.entries = function () {
-    var entryFiles = glob.sync(PAGE_PATH + '/**/**/**/**/*.js')
+ * 
+ * 
+ * 
+ */
+exports.entries = function() {
+    var entryFiles = glob.sync(PAGE_PATH + '/**/**/**/**/*.js');
     var map = {}
+
     entryFiles.forEach((filePath) => {
         var filename = filePath.substring(filePath.lastIndexOf('\/') + 1, filePath.lastIndexOf('.'))
         map[filename] = filePath
     })
-    map = Object.assign({app: './src/main.js'}, map)
+
+    map = Object.assign({ app: './src/main.js' }, map)
     return map
 }
 
 
-//多页面输出配置
-// 与上面的多页面入口配置相同，读取pages文件夹下的对应的html后缀文件，然后放入数组中
-exports.htmlPlugin = function () {
-    let entryHtml = glob.sync(PAGE_PATH + '/**/**/**/**/*.html');           // 页面路径
+
+
+
+
+/**
+ * 
+ * 
+ * 
+ * 
+ * 多页面输出配置
+ * 
+ * 与上面的多页面入口配置相同，读取pages文件夹下的对应的html后缀文件，然后放入数组中
+ * 
+ * 
+ * 
+ */
+exports.htmlPlugin = function() {
+    // 入口页面路径
+    let entryHtml = glob.sync(PAGE_PATH + '/**/**/**/**/*.vue');
     let arr = [];
-    entryHtml.forEach((filePath,i) => {
+
+    /***
+     * 
+     * 遍历多页面
+     * 输出多页面
+     * 
+     */
+    entryHtml.forEach((filePath, i) => {
         let filename = filePath.substring(filePath.lastIndexOf('\/') + 1, filePath.lastIndexOf('.'));
         let pagesCatalog = filePath.split('pages/')[1];
-        let fileFolder = pagesCatalog.substring(0,pagesCatalog.lastIndexOf('/'));     /*多文件输出*/
+        //输出文件名
+        let fileFolder = pagesCatalog.substring(0, pagesCatalog.lastIndexOf('/'));
 
 
-        // let fileFolder = pagesCatalog.indexOf('/')!=-1?pagesCatalog.split('/')[0]:'';    /*双文件输出*/
         /*多页面*/
         let conf = {
             // 模板来源
-            template: filePath,
+            template: path.resolve(__dirname, '../src/pages/tem.ejs'),
+
             // 文件名称
-            filename: fileFolder==''?(filename + '.html'):( 'pages/' + fileFolder + '/'+ filename + '.html'),
+            filename: isApp === true ? (filename + '.html') : fileFolder == '' ? (filename + '.html') : ('pages/' + fileFolder + '/' + filename + '.html'),
             // 页面模板需要加对应的js脚本，如果不加这行则每个页面都会引入所有的js脚本
             chunks: ['manifest', 'vendor', filename],
+            title: filename,
             inject: true
         }
         if (process.env.NODE_ENV === 'production') {
             conf = merge(conf, {
                 minify: {
                     removeComments: true,
-                    collapseWhitespace: true,
+                    collapseWhitespace: false,
                     removeAttributeQuotes: true
                 },
                 chunksSortMode: 'dependency'
             })
         }
+
+
         arr.push(new HtmlWebpackPlugin(conf))
     })
 
-    /*单页面*/
+    /**
+     * 
+     * 
+     * 单页面输出
+     * 
+     */
     if (process.env.NODE_ENV === 'production') {
         arr.push(new HtmlWebpackPlugin({
             filename: 'index.html',
@@ -79,8 +122,8 @@ exports.htmlPlugin = function () {
                 removeComments: true,
                 collapseWhitespace: true,
                 removeAttributeQuotes: true
-                // more options:
-                // https://github.com/kangax/html-minifier#options-quick-reference
+                    // more options:
+                    // https://github.com/kangax/html-minifier#options-quick-reference
             },
             // necessary to consistently work with multiple chunks via CommonsChunkPlugin
             chunksSortMode: 'dependency',
@@ -103,15 +146,15 @@ exports.htmlPlugin = function () {
 }
 
 
-exports.assetsPath = function (_path) {
-    const assetsSubDirectory = process.env.NODE_ENV === 'production'
-        ? config.build.assetsSubDirectory
-        : config.dev.assetsSubDirectory
+exports.assetsPath = function(_path) {
+    const assetsSubDirectory = process.env.NODE_ENV === 'production' ?
+        config.build.assetsSubDirectory :
+        config.dev.assetsSubDirectory
 
     return path.posix.join(assetsSubDirectory, _path)
 }
 
-exports.cssLoaders = function (options) {
+exports.cssLoaders = function(options) {
     options = options || {}
 
     const cssLoader = {
@@ -132,7 +175,7 @@ exports.cssLoaders = function (options) {
     var px2remLoader = {
         loader: 'px2rem-loader',
         options: {
-          remUnit: 75//设计稿宽度/10
+            remUnit: 75 //设计稿宽度/10
         }
     };
 
@@ -141,7 +184,7 @@ exports.cssLoaders = function (options) {
     function generateLoaders(loader, loaderOptions) {
         // const loaders = options.usePostCSS ? [cssLoader, postcssLoader] : [cssLoader]
 
-        const loaders = [cssLoader, postcssLoader,px2remLoader]
+        const loaders = [cssLoader, postcssLoader, px2remLoader]
 
         if (loader) {
             loaders.push({
@@ -170,7 +213,7 @@ exports.cssLoaders = function (options) {
         css: generateLoaders(),
         postcss: generateLoaders(),
         less: generateLoaders('less'),
-        sass: generateLoaders('sass', {indentedSyntax: true}),
+        sass: generateLoaders('sass', { indentedSyntax: true }),
         scss: generateLoaders('sass'),
         stylus: generateLoaders('stylus'),
         styl: generateLoaders('stylus')
@@ -178,7 +221,7 @@ exports.cssLoaders = function (options) {
 }
 
 // Generate loaders for standalone style files (outside of .vue)
-exports.styleLoaders = function (options) {
+exports.styleLoaders = function(options) {
     const output = []
     const loaders = exports.cssLoaders(options)
 

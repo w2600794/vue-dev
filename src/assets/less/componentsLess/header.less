@@ -1,6 +1,21 @@
-.header{
+.header-warp {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
     width: 100vw;
-    height: 100px;
-    line-height: 100px;
-    background: #ddd;
+    height: 7vh;
+    background: #fff;
+    box-shadow: 0 1px 10px 0 #ddd;
+
+    .back {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+        width: 90px;
+        height: 100%;
+        background: red;
+    }
 }

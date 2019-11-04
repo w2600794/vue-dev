@@ -1,12 +1,66 @@
-.router-page-fade-enter-active,.router-page-fade-leave-active{
-    transition: all .5s;
+@import url('./animate.less');
+
+@import url('./componentsLess/header.less');
+@import url(./componentsLess/main.less);
+
+
+
+.bgfff {
+    background: #fff;
 }
-.router-page-fade-enter{
-    opacity: 0;
-    transform: translateX(100%);
+
+.mt26 {
+    margin-top: 26px;
 }
-.router-page-fade-leave-active{
-    position: absolute;
-    opacity: 0;
-    transform: translateX(-100%);
+
+.mb26 {
+    margin-bottom: 26px;
+}
+
+.ml26 {
+    margin-left: 26px;
+}
+
+.mr26 {
+    margin-right: 26px;
+}
+
+.m26 {
+    margin: 26px;
+}
+
+.pt26 {
+    padding-top: 26px;
+}
+
+.pb26 {
+    padding-bottom: 26px;
+}
+
+.pl26 {
+    padding-left: 26px;
+}
+
+.pr26 {
+    padding-right: 26px;
+}
+
+.p26 {
+    padding: 26px;
+}
+
+.clear {
+    &:after {
+        content: '';
+        display: block;
+        clear: both;
+    }
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
 }

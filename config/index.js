@@ -52,7 +52,7 @@ module.exports = {
 
         // Paths
         assetsRoot: path.resolve(__dirname, '../dist'),
-        assetsSubDirectory: '',  //isApp 为空 浏览器static
+        assetsSubDirectory: '', //isApp 为空 浏览器static
         assetsPublicPath: dev.dev,
 
         /**

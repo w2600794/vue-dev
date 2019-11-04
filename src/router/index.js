@@ -5,28 +5,41 @@ const Index = r => require.ensure([], () => {
 }, 'Index');
 
 
-const Header = r => require.ensure([], () => {
-    r(require('@/components/header/header'));
-}, 'header');
 
 
-
-const routers = [{
-    path: '/',
-    component: App,    // 顶层路由，对应 index.html
-    children: [ // 二级路由，对应 APP.vue
-        // 地址为空 跳到首页
-        {
-            path: '',
-            name: 'Index',
-            component: Index,
-            meta: {
-                title: '鳄鱼宝',
-                allowBack: false
-            }
+const routers = [
+    //首页
+    {
+        path: '/',
+        name: 'index',
+        component: Index,
+        meta: {
+            index: 0
         }
-    ]
-}]
+    },
+    {
+        path: '/home',
+        name: 'home',
+        component: r => require.ensure([], () => {
+            r(require('@/components/home/home'));
+        }, 'home'),
+        meta: {
+            index: 1
+        }
+
+    },
+    {
+        path: '/user',
+        name: 'user',
+        component: r => require.ensure([], () => {
+            r(require('@/components/user/user'));
+        }, 'user'),
+        meta: {
+            index: 1
+        }
+
+    },
+]
 
 
 

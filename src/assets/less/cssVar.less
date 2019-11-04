@@ -1,18 +1,20 @@
 @import './common.less';
-.borders(@px,@color) {
+
+.borders(@px, @color) {
     border: @px solid @color;
 }
 
 
 
-.bg-image(@url,@widthSize,@heightSize) {
+.bg-image(@url, @widthSize, @heightSize) {
     @media (-webkit-min-device-pixel-ratio: 2) {
         background-image: url("../image/@{url}@2x.png");
         background-size: @widthSize @heightSize;
     }
+
     @media (-webkit-min-device-pixel-ratio: 3) {
         background-image: url('../image/@{url}@3x.png');
         background-size: @widthSize @heightSize;
     }
-    
+
 }

@@ -1,26 +1,24 @@
 <template>
-    <div class="header">
+    <div class="header header-warp">
+        <span class="back" v-if="back===1?true:false"></span>
+        <span>{{title}}</span>
         <span></span>
-        <span>{{title}}头</span>
-        <span></span>
-        <div>我是header</div>
-        <slot name="head"></slot>
-        <slot name="main"></slot>
-        <slot name="foot"></slot>
-        <div>我是footer</div>
-
-        <div class="child-text">
-            <slot :text="childSlotData"></slot>
-        </div>
     </div>
 </template>
 <script>
 export default {
+    props: {
+        back: {
+            type: Number,
+            default: 1
+        },
+        title: {
+            type: String,
+            default: "ladfasdf "
+        }
+    },
     data() {
-        return {
-            title: "首页",
-            childSlotData: "我是childSlotData"
-        };
+        return {};
     }
 };
 </script>
