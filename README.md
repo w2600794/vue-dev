@@ -21,6 +21,7 @@
 ----build                               配置目录
 ----config                              配置目录
 ----dist                                打包后目录
+----pages                               多页面入口
 ----src                                 开发目录
       --assets                          资源目录
             --image                     图片资源目录
